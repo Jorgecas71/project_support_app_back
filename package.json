@@ -1,0 +1,11 @@
+{
+  "name": "project.support.app.backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "author": "jorge",
+  "license": "ISC"
+}
