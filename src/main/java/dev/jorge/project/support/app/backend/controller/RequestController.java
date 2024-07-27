@@ -4,23 +4,45 @@ import dev.jorge.project.support.app.backend.controller.RequestController;
 import dev.jorge.project.support.app.backend.models.Request;
 import dev.jorge.project.support.app.backend.services.RequestService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/requests")
 public class RequestController {
 
-    private RequestService services;
+    @Autowired
+    private RequestService requestService;
 
-    public RequestController(RequestService services) {
-        this.services = services;
+    @GetMapping
+    public List<Request> getAllRequests() {
+        return requestService.getAllRequests();
     }
 
-    @GetMapping("/request")
+    @PostMapping
+    public Request createRequest(@RequestBody Request request) {
+        return requestService.createRequest(request);
+    }
+
+    @PutMapping("/{id}")
+    public Request updateRequest(@PathVariable Long id, @RequestBody Request request) {
+        return requestService.updateRequest(id, request);
+    }
+
+    @PutMapping("/{id}/complete")
+    public Request markAsCompleted(@PathVariable Long id) {
+        return requestService.markAsCompleted(id);
+    }
+
     public List<Request> index() {
-        return services.getAll();
+      
+        throw new UnsupportedOperationException("Unimplemented method 'index'");
     }
 }
-
-

@@ -30,7 +30,8 @@ public class RequestServiceTest {
                 new Request(1L, "Request 1"),
                 new Request(2L, "Request 2")));
 
-        List<Request> result = service.getAll();
+        @SuppressWarnings("unchecked")
+        List<Request> result = (List<Request>) service.getAll();
 
         assertEquals(2, result.size());
         verify(repository, times(1)).findAll();

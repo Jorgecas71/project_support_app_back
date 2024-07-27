@@ -35,6 +35,44 @@ public class Request {
         return name;
     }
 
+    /**
+     * @return
+     */
+    public Object getDescription() {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
+    }
+
+    public Object getRequesterName() {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'getRequesterName'");
+    }
+
+    public void setRequesterName(Object requesterName) {
+       
+        throw new UnsupportedOperationException("Unimplemented method 'setRequesterName'");
+    }
+
+    public void setDescription(Object description) {
+       
+        throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
+    }
+
+    public Object getSubject() {
+    
+        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+    }
+
+    public void setSubject(Object subject) {
+       
+        throw new UnsupportedOperationException("Unimplemented method 'setSubject'");
+    }
+
+    public void setStatus(String string) {
+       
+        throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+    }
+
 }
 
 
