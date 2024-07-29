@@ -12,7 +12,7 @@
     <artifactId>project_support_app_backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>project_support_app_backend</name>
-    <description>Spring Boot in project_support_app_backend</description>
+    <description>Spring Boot in project.support.app.backend</description>
     <url/>
     <licenses>
         <license/>
