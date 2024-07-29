@@ -2,7 +2,6 @@ package dev.jorge.project.support.app.backend.services;
 
 import dev.jorge.project.support.app.backend.models.Request;
 import dev.jorge.project.support.app.backend.repositories.RequestRepository;
-import dev.jorge.project.support.app.backend.services.RequestService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("unused")
 @SpringBootTest
 public class RequestServiceTest {
 
@@ -27,8 +25,8 @@ public class RequestServiceTest {
     @Test
     public void getAllTest() {
         when(repository.findAll()).thenReturn(Arrays.asList(
-                new Request(1L, "Request 1"),
-                new Request(2L, "Request 2")));
+                new Request(1L, "Request 1", null, null, null, null),
+                new Request(2L, "Request 2", null, null, null, null)));
 
         @SuppressWarnings("unchecked")
         List<Request> result = (List<Request>) service.getAll();

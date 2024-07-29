@@ -25,8 +25,8 @@ public class RequestControllerTest {
     @Test
     public void indexTest() {
         when(service.getAllRequests()).thenReturn(Arrays.asList(
-                new Request(1L, "Request 1"),
-                new Request(2L, "Request 2")));
+                new Request(1L, "Request 1", null, null, null, null),
+                new Request(2L, "Request 2", null, null, null, null)));
 
         List<Request> result = controller.index();
 
@@ -36,7 +36,7 @@ public class RequestControllerTest {
 
     @Test
     public void createRequestTest() {
-        Request request = new Request(1L, "New Request");
+        Request request = new Request(1L, "New Request", null, null, null, null);
         when(service.createRequest(request)).thenReturn(request);
 
         Request result = controller.createRequest(request);
@@ -47,7 +47,7 @@ public class RequestControllerTest {
 
     @Test
     public void updateRequestTest() {
-        Request request = new Request(1L, "Updated Request");
+        Request request = new Request(1L, "Updated Request", null, null, null, null);
         when(service.updateRequest(1L, request)).thenReturn(request);
 
         Request result = controller.updateRequest(1L, request);
@@ -58,13 +58,12 @@ public class RequestControllerTest {
 
     @Test
     public void markAsCompletedTest() {
-        Request request = new Request(1L, "Completed Request");
+        Request request = new Request(1L, "Completed Request", null, null, null, null);
         when(service.markAsCompleted(1L)).thenReturn(request);
 
         Request result = controller.markAsCompleted(1L);
 
         assertEquals(request, result);
         verify(service, times(1)).markAsCompleted(1L);
-        
     }
 }

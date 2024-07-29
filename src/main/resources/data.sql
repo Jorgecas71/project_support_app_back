@@ -1,1 +1,1 @@
-INSERT INTO request (id, name, fecha, tema, descripcion) VALUES (default, 'Name', 'Fecha', 'Tema', 'Descripción');
+INSERT INTO request (name, fecha, tema, descripcion) VALUES ('Name', 'Fecha', 'Tema', 'Descripción');

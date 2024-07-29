@@ -17,14 +17,21 @@ public class Request {
     private long id;
 
     private String name;
+    private String description;
+    private String requesterName;
+    private String subject;
+    private String status;
 
     public Request() {
-
     }
 
-    public Request(long id, String name) {
+    public Request(long id, String name, String description, String requesterName, String subject, String status) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.requesterName = requesterName;
+        this.subject = subject;
+        this.status = status;
     }
 
     public long getId() {
@@ -35,44 +42,40 @@ public class Request {
         return name;
     }
 
-    /**
-     * @return
-     */
-    public Object getDescription() {
-      
-        throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Object getRequesterName() {
-      
-        throw new UnsupportedOperationException("Unimplemented method 'getRequesterName'");
+    public String getDescription() {
+        return description;
     }
 
-    public void setRequesterName(Object requesterName) {
-       
-        throw new UnsupportedOperationException("Unimplemented method 'setRequesterName'");
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setDescription(Object description) {
-       
-        throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
+    public String getRequesterName() {
+        return requesterName;
     }
 
-    public Object getSubject() {
-    
-        throw new UnsupportedOperationException("Unimplemented method 'getSubject'");
+    public void setRequesterName(String requesterName) {
+        this.requesterName = requesterName;
     }
 
-    public void setSubject(Object subject) {
-       
-        throw new UnsupportedOperationException("Unimplemented method 'setSubject'");
+    public String getSubject() {
+        return subject;
     }
 
-    public void setStatus(String string) {
-       
-        throw new UnsupportedOperationException("Unimplemented method 'setStatus'");
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
-
 
