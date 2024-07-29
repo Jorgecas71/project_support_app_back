@@ -1,10 +1,9 @@
 package dev.jorge.project.support.app.backend.controller;
 
-import dev.jorge.project.support.app.backend.controller.RequestController;
 import dev.jorge.project.support.app.backend.models.Request;
 import dev.jorge.project.support.app.backend.services.RequestService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +17,11 @@ import java.util.List;
 @RequestMapping("/api/requests")
 public class RequestController {
 
-    @Autowired
-    private RequestService requestService;
+    private final RequestService requestService;
+
+    public RequestController(RequestService requestService) {
+        this.requestService = requestService;
+    }
 
     @GetMapping
     public List<Request> getAllRequests() {
@@ -41,8 +43,8 @@ public class RequestController {
         return requestService.markAsCompleted(id);
     }
 
+    @GetMapping("/index")
     public List<Request> index() {
-      
-        throw new UnsupportedOperationException("Unimplemented method 'index'");
+        return requestService.getAllRequests();
     }
 }
