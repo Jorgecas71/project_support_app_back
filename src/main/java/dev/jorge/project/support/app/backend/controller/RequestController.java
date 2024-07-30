@@ -3,7 +3,9 @@ package dev.jorge.project.support.app.backend.controller;
 import dev.jorge.project.support.app.backend.models.Request;
 import dev.jorge.project.support.app.backend.services.RequestService;
 
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,28 +25,35 @@ public class RequestController {
         this.requestService = requestService;
     }
 
-    @GetMapping
-    public List<Request> getAllRequests() {
-        return requestService.getAllRequests();
+   
+   @GetMapping("/all")
+    public ResponseEntity<List<Request>> getAllRequest() {
+        List<Request> request = requestService.getAllRequest();
+        return ResponseEntity.ok(request);
     }
-
-    @PostMapping
-    public Request createRequest(@RequestBody Request request) {
-        return requestService.createRequest(request);
+    @GetMapping("/{idConsult}")
+    public ResponseEntity<Request> getRequesttById(@PathVariable Long idRequest) {
+        Request request = requestService.getRequestById(idRequest);
+        if (request != null) {
+            return ResponseEntity.ok(request);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-    @PutMapping("/{id}")
-    public Request updateRequest(@PathVariable Long id, @RequestBody Request request) {
-        return requestService.updateRequest(id, request);
+   @PostMapping
+    public ResponseEntity<Request> createRequest(@RequestBody Request request) {
+        Request createdRequest = requestService.createRequest(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRequest);
     }
-
-    @PutMapping("/{id}/complete")
-    public Request markAsCompleted(@PathVariable Long id) {
-        return requestService.markAsCompleted(id);
+  @PutMapping("/{idRequest}")
+    public ResponseEntity<Request> updateRequest(@RequestBody Request request, @PathVariable Long idRequest) {
+       request.setId(idRequest);
+        Request updatedRequest = requestService.updateRequest(request);
+        return ResponseEntity.ok(updatedRequest);
     }
-
-    @GetMapping("/index")
-    public List<Request> index() {
-        return requestService.getAllRequests();
+    @DeleteMapping("/{idRequest}")
+    public ResponseEntity<Void> deleteRequestById(@PathVariable Long idRequest) {
+       requestService.deleteRequestById(idRequest);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -2,10 +2,13 @@ package dev.jorge.project.support.app.backend.controller;
 
 import dev.jorge.project.support.app.backend.models.Request;
 import dev.jorge.project.support.app.backend.services.RequestService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,57 +16,82 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-public class RequestControllerTest {
+public class RequestControllertest {
 
-    @Autowired
-    private RequestController controller;
+    @Mock
+    private RequestService requestService;
 
-    @MockBean
-    private RequestService service;
+    @InjectMocks
+    private RequestController requestController;
 
-    @Test
-    public void indexTest() {
-        when(service.getAllRequests()).thenReturn(Arrays.asList(
-                new Request(1L, "Request 1", null, null, null, null),
-                new Request(2L, "Request 2", null, null, null, null)));
-
-        List<Request> result = controller.index();
-
-        assertEquals(2, result.size());
-        verify(service, times(1)).getAllRequests();
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void createRequestTest() {
-        Request request = new Request(1L, "New Request", null, null, null, null);
-        when(service.createRequest(request)).thenReturn(request);
+    void testGetAllRequest() {
+        Request request1 = new Request();
+        Request request2 = new Request();
+        List<Request> requests = Arrays.asList(request1, request2);
 
-        Request result = controller.createRequest(request);
+        when(requestService.getAllRequest()).thenReturn(requests);
 
-        assertEquals(request, result);
-        verify(service, times(1)).createRequest(request);
+        ResponseEntity<List<Request>> response = requestController.getAllRequest();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(requests, response.getBody());
     }
 
     @Test
-    public void updateRequestTest() {
-        Request request = new Request(1L, "Updated Request", null, null, null, null);
-        when(service.updateRequest(1L, request)).thenReturn(request);
+    void testGetRequestById() {
+        Request request = new Request();
+        when(requestService.getRequestById(1L)).thenReturn(request);
 
-        Request result = controller.updateRequest(1L, request);
+        ResponseEntity<Request> response = requestController.getRequesttById(1L);
 
-        assertEquals(request, result);
-        verify(service, times(1)).updateRequest(1L, request);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(request, response.getBody());
     }
 
     @Test
-    public void markAsCompletedTest() {
-        Request request = new Request(1L, "Completed Request", null, null, null, null);
-        when(service.markAsCompleted(1L)).thenReturn(request);
+    void testGetRequestByIdNotFound() {
+        when(requestService.getRequestById(1L)).thenReturn(null);
 
-        Request result = controller.markAsCompleted(1L);
+        ResponseEntity<Request> response = requestController.getRequesttById(1L);
 
-        assertEquals(request, result);
-        verify(service, times(1)).markAsCompleted(1L);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    void testCreateRequest() {
+        Request request = new Request();
+        when(requestService.createRequest(request)).thenReturn(request);
+
+        ResponseEntity<Request> response = requestController.createRequest(request);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(request, response.getBody());
+    }
+
+    @Test
+    void testUpdateRequest() {
+        Request request = new Request();
+        when(requestService.updateRequest(request)).thenReturn(request);
+
+        ResponseEntity<Request> response = requestController.updateRequest(request, 1L);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(request, response.getBody());
+    }
+
+    @Test
+    void testDeleteRequestById() {
+        doNothing().when(requestService).deleteRequestById(1L);
+
+        ResponseEntity<Void> response = requestController.deleteRequestById(1L);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        verify(requestService, times(1)).deleteRequestById(1L);
     }
 }

@@ -1,5 +1,7 @@
 package dev.jorge.project.support.app.backend.models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,28 +16,37 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_request")
+    
     private long id;
-
+    @Column(name = "name")
     private String name;
+    @Column(name = "date")
+    private LocalDate date;
+    @Column(name = "description")
     private String description;
-    private String requesterName;
+    @Column(name = "subject")
     private String subject;
+    @Column(name = "status")
     private String status;
 
     public Request() {
     }
 
-    public Request(long id, String name, String description, String requesterName, String subject, String status) {
+    public Request(long id, String name, LocalDate date, String description, String subject, String status) {
         this.id = id;
         this.name = name;
+        this.date = date;
         this.description = description;
-        this.requesterName = requesterName;
         this.subject = subject;
         this.status = status;
     }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -46,20 +57,20 @@ public class Request {
         this.name = name;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getRequesterName() {
-        return requesterName;
-    }
-
-    public void setRequesterName(String requesterName) {
-        this.requesterName = requesterName;
     }
 
     public String getSubject() {
@@ -77,5 +88,7 @@ public class Request {
     public void setStatus(String status) {
         this.status = status;
     }
+
+   
 }
 
